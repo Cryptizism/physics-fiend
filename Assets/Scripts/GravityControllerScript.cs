@@ -7,15 +7,15 @@ using System;
 
 public class GravityControllerScript : MonoBehaviour
 {
-    public TMP_InputField numInput;
-    public Slider sliderInput;
+    [SerializeField] TMP_InputField numInput;
+    [SerializeField] Slider sliderInput;
 
-    public void editGravityValue(float y)
+    [SerializeField] public void editGravityValue(float y)
     {
         Physics2D.gravity = new Vector3(0f, y, 0f);
     }
 
-    public void InputToGravity(String newNum)
+    [SerializeField] void InputToGravity(String newNum)
     {
         float floatNum;
         if (newNum.Length == 0 || newNum.StartsWith("-"))
@@ -26,17 +26,16 @@ public class GravityControllerScript : MonoBehaviour
         editGravityValue(floatNum);
     }
 
-    public void SliderToGravity(float num)
+    [SerializeField] void SliderToGravity(float num)
     {
         numInput.text = Math.Round((decimal)num, 2).ToString();
         editGravityValue(num);
     }
 
-    public void updateSlider(String newNum)
+    [SerializeField] void updateSlider(String newNum)
     {
-        if(newNum.Length == 0 || (newNum.StartsWith("-") && newNum.Length == 1))
+        if (newNum.Length == 0 || (newNum.StartsWith("-") && newNum.Length == 1))
         {
-            Debug.Log("Trigger");
             sliderInput.value = 0;
             return;
         }
@@ -44,15 +43,16 @@ public class GravityControllerScript : MonoBehaviour
         if (VerifyInput(floatNum))
         {
             sliderInput.value = floatNum;
-        } else
+        }
+        else
         {
-            if(floatNum > 20)
+            if (floatNum > 20)
             {
                 sliderInput.value = 20;
             }
             else
             {
-                sliderInput.value = -29;
+                sliderInput.value = -20;
             }
 
         }
@@ -60,7 +60,7 @@ public class GravityControllerScript : MonoBehaviour
 
     private bool VerifyInput(float num)
     {
-        if (num > 20|| num < -20 ) return false;
+        if (num > 20 || num < -20) return false;
         return true;
     }
 

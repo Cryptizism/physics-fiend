@@ -5,7 +5,7 @@ using UnityEngine;
 public class PropertiesAdder : MonoBehaviour
 {
 
-    public GameObject[] properties;
+    [SerializeField] GameObject[] properties;
 
     private GameObject content;
 
@@ -27,6 +27,17 @@ public class PropertiesAdder : MonoBehaviour
         {
             childObject = Instantiate(properties[i]) as GameObject;
             childObject.transform.SetParent(content.transform, false);
+        }
+
+        GameObject previous = GameObject.FindGameObjectWithTag("focused");
+        if(previous != null)
+        {
+            previous.tag = "Untagged";
+        }
+
+        if (gameObject.tag != "Player")
+        {
+            gameObject.tag = "focused";
         }
     }
 }
